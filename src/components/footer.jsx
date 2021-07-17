@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://twitter.com/gtchakama">
         A Project By George Chakama
       </Link>{" "}
       {new Date().getFullYear()}

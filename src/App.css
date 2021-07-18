@@ -58,3 +58,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.form{
+  width: 500px;
+}
+
+.container{
+  padding:20px
+}

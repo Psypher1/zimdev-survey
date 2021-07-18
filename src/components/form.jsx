@@ -99,26 +99,40 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const axios = require("axios");
 
-    console.log(data);
+    axios({
+      method: "post",
+      url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
+      params: {},
+      data: [data],
+    })
+      .then(function (response) {
+        // handle success
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <form onSubmit={handleSubmit} className={classes.form} Validate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
+                name="firstName"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
-                defaultValue={firstname}
                 value={firstname}
                 onChange={handleChange}
               />
@@ -150,15 +164,12 @@ export default function SignUp() {
               />
             </Grid>
 
-            {/* <Grid item xs={12}>
-
+            <Grid item xs={12}>
               <Autocomplete
                 multiple
                 id="checkboxes-tags-demo"
                 options={topDevRoles}
                 disableCloseOnSelect
-                value={devRole}
-                onChange={handleChange}
                 getOptionLabel={(option) => option.title}
                 renderOption={(option, { selected }) => (
                   <React.Fragment>
@@ -177,15 +188,16 @@ export default function SignUp() {
                     variant="outlined"
                     label="Developer Role"
                     placeholder="You can add more"
+                    value={devRole}
+                    onChange={handleChange}
                   />
                 )}
               />
-              
-            </Grid> */}
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                // required
+                required
                 fullWidth
                 // name="password"
                 label="Other"

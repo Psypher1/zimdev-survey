@@ -93,7 +93,7 @@ export default function SignUp() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [devRole, setDevRole] = useState("");
+  const [devRole, setDevRole] = useState([]);
   const [other, setOther] = useState("");
 
   // const { firstname, lastname, email, devRole, other } = data;
@@ -104,7 +104,19 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const axios = require("axios");
+
+    // devRole.forEach(function (entry) {
+    //   console.log(entry.title);
+    // });
+
+    let userFullnames = devRole.map(function (element) {
+      return `${element.title}`;
+    });
+
+    console.log(userFullnames);
+    // ["Susan Steward", "Daniel Longbottom", "Jacob Black"]
+
+    // const axios = require("axios");
 
     // axios({
     //   method: "post",
@@ -121,7 +133,8 @@ export default function SignUp() {
     //     console.log(error);
     //   });
 
-    console.log(firstname, lastname, email, devRole, other);
+    console.log(firstname, lastname, email, userFullnames, other);
+    // console.log(devRole[0]);
   };
 
   return (

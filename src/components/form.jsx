@@ -13,6 +13,9 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 
+import { Alert, AlertTitle } from "@material-ui/lab";
+import Snackbar from "@material-ui/core/Snackbar";
+
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 // Top 100 Developers Roles
@@ -101,7 +104,16 @@ export default function SignUp() {
   // const handleChange = (e) => {
   //   setData({ ...data, [e.target.name]: e.target.value });
   // };
+  const [open, setOpen] = React.useState(false);
 
+  
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -117,24 +129,42 @@ export default function SignUp() {
     console.log(DeveloperRoles.toString());
     // ["Web Developer","Data Scientist"] => Web Developer,Data Scientist
 
+    const dateStamp = new Date();
     const axios = require("axios");
 
     axios({
       method: "post",
       url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
       params: {},
-      data: [[firstname, lastname, email, DevRolees, other]],
+      data: [[firstname, lastname, email, DevRolees, other, dateStamp]],
     })
       .then(function (response) {
         // handle success
+
+        setOpen(true);
+
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            This is a success message!
+          </Alert>
+        </Snackbar>;
+
         console.log(response.data);
       })
       .catch(function (error) {
         // handle error
+
+        setOpen(true);
+
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            This is an error  message!
+          </Alert>
+        </Snackbar>;
         console.log(error);
       });
 
-    console.log(firstname, lastname, email, DevRolees, other);
+    console.log(firstname, lastname, email, DevRolees, other, dateStamp);
     // console.log(devRole[0]);
   };
 

@@ -83,38 +83,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const [data, setData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    devRole: "",
-    other: "",
-  });
+  // const [data, setData] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   devRole: "",
+  //   other: "",
+  // });
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [devRole, setDevRole] = useState("");
+  const [other, setOther] = useState("");
 
-  const { firstname, lastname, email, devRole, other } = data;
+  // const { firstname, lastname, email, devRole, other } = data;
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setData({ ...data, [e.target.name]: e.target.value });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const axios = require("axios");
 
-    axios({
-      method: "post",
-      url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
-      params: {},
-      data: [data],
-    })
-      .then(function (response) {
-        // handle success
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
+    // axios({
+    //   method: "post",
+    //   url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
+    //   params: {},
+    //   data: [[firstname]],
+    // })
+    //   .then(function (response) {
+    //     // handle success
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     // handle error
+    //     console.log(error);
+    //   });
+
+    console.log(firstname, lastname, email, devRole, other);
   };
 
   return (
@@ -134,7 +141,9 @@ export default function SignUp() {
                 label="First Name"
                 autoFocus
                 value={firstname}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setFirstname(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -147,7 +156,9 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="lname"
                 value={lastname}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -160,12 +171,15 @@ export default function SignUp() {
                 name="email"
                 autoComplete="email"
                 value={email}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </Grid>
 
             <Grid item xs={12}>
               <Autocomplete
+                onChange={(event, value) => setDevRole(value)}
                 multiple
                 id="checkboxes-tags-demo"
                 options={topDevRoles}
@@ -188,8 +202,11 @@ export default function SignUp() {
                     variant="outlined"
                     label="Developer Role"
                     placeholder="You can add more"
+                    getOptionSelected={(option) => option.title}
                     value={devRole}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setDevRole(e.target.value);
+                    }}
                   />
                 )}
               />
@@ -205,7 +222,9 @@ export default function SignUp() {
                 // id="password"
                 autoComplete="current-password"
                 value={other}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setOther(e.target.value);
+                }}
               />
             </Grid>
           </Grid>

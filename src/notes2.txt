@@ -242,3 +242,18 @@ export default function SignUp() {
     </Container>
   );
 }
+
+
+const [data, setData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    devRole: "",
+    other: "",
+  });
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [devRole, setDevRole] = useState("");
+  const [other, setOther] = useState("");

@@ -110,7 +110,7 @@ export default function SignUp() {
     //   method: "post",
     //   url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
     //   params: {},
-    //   data: [[firstname]],
+    //   data: [[firstname, lastname, email, other]],
     // })
     //   .then(function (response) {
     //     // handle success
@@ -203,10 +203,10 @@ export default function SignUp() {
                     label="Developer Role"
                     placeholder="You can add more"
                     getOptionSelected={(option) => option.title}
-                    value={devRole}
                     onChange={(e) => {
-                      setDevRole(e.target.value);
+                      setDevRole((e.target.id.title = e.target.value));
                     }}
+                    value={devRole}
                   />
                 )}
               />

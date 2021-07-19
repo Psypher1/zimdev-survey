@@ -109,31 +109,32 @@ export default function SignUp() {
     //   console.log(entry.title);
     // });
 
-    let userFullnames = devRole.map(function (element) {
+    let DeveloperRoles = devRole.map(function (element) {
       return `${element.title}`;
     });
+    const DevRolees = DeveloperRoles.toString();
 
-    console.log(userFullnames);
-    // ["Susan Steward", "Daniel Longbottom", "Jacob Black"]
+    console.log(DeveloperRoles.toString());
+    // ["Web Developer","Data Scientist"] => Web Developer,Data Scientist
 
-    // const axios = require("axios");
+    const axios = require("axios");
 
-    // axios({
-    //   method: "post",
-    //   url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
-    //   params: {},
-    //   data: [[firstname, lastname, email, other]],
-    // })
-    //   .then(function (response) {
-    //     // handle success
-    //     console.log(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   });
+    axios({
+      method: "post",
+      url: "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
+      params: {},
+      data: [[firstname, lastname, email, DevRolees, other]],
+    })
+      .then(function (response) {
+        // handle success
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
 
-    console.log(firstname, lastname, email, userFullnames, other);
+    console.log(firstname, lastname, email, DevRolees, other);
     // console.log(devRole[0]);
   };
 

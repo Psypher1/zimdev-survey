@@ -104,16 +104,7 @@ export default function SignUp() {
   // const handleChange = (e) => {
   //   setData({ ...data, [e.target.name]: e.target.value });
   // };
-  const [open, setOpen] = React.useState(false);
 
-  
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -126,7 +117,7 @@ export default function SignUp() {
     });
     const DevRolees = DeveloperRoles.toString();
 
-    console.log(DeveloperRoles.toString());
+    // console.log(DeveloperRoles.toString());
     // ["Web Developer","Data Scientist"] => Web Developer,Data Scientist
 
     const dateStamp = new Date();
@@ -141,26 +132,11 @@ export default function SignUp() {
       .then(function (response) {
         // handle success
 
-        setOpen(true);
-
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success">
-            This is a success message!
-          </Alert>
-        </Snackbar>;
-
         console.log(response.data);
       })
       .catch(function (error) {
         // handle error
 
-        setOpen(true);
-
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error">
-            This is an error  message!
-          </Alert>
-        </Snackbar>;
         console.log(error);
       });
 

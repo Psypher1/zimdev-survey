@@ -15,6 +15,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 import { Alert, AlertTitle } from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -99,11 +100,28 @@ export default function SignUp() {
   const [devRole, setDevRole] = useState([]);
   const [other, setOther] = useState("");
 
-  // const { firstname, lastname, email, devRole, other } = data;
+  // to use Snackbar
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
 
-  // const handleChange = (e) => {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // };
+  // to switch the state to Snackbar
+  const snackBarClose = (e) => {
+    setSnackBarOpen(false);
+  };
+
+  // to switch from axios = not yet implemented
+  async function sendData(devData) {
+    await fetch(
+      "https://v1.nocodeapi.com/gtchakama/google_sheets/yFVSOASwesCbMvZx?tabId=Sheet1",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(devData),
+      }
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -116,9 +134,6 @@ export default function SignUp() {
       return `${element.title}`;
     });
     const DevRolees = DeveloperRoles.toString();
-
-    // console.log(DeveloperRoles.toString());
-    // ["Web Developer","Data Scientist"] => Web Developer,Data Scientist
 
     const dateStamp = new Date();
     const axios = require("axios");
@@ -133,20 +148,63 @@ export default function SignUp() {
         // handle success
 
         console.log(response.data);
+
+        // set state of Snackbar and display message
+        setSnackBarOpen(true);
+        setSnackBarMessage("Submit Success");
       })
       .catch(function (error) {
         // handle error
 
         console.log(error);
+
+        // set state of Snackbar and display message
+        setSnackBarOpen(true);
+        setSnackBarMessage("Submit Failure");
       });
 
     console.log(firstname, lastname, email, DevRolees, other, dateStamp);
     // console.log(devRole[0]);
+
+    // data to be passed to sendData
+    const devData = {
+      firstname,
+      lastname,
+      email,
+      DevRolees,
+      other,
+      dateStamp,
+    };
+
+    // clear fields on submit
+    setFirstname("");
+    setLastname("");
+    setEmail("");
+    setDevRole([]); // multi-select not clearting - look into
+    setOther("");
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      {/* has to be in a html element */}
+      <Snackbar
+        anchorOrigin={{ vertical: "center", horizontal: "center" }}
+        open={snackBarOpen}
+        autoHideDuration={2000}
+        onClose={snackBarClose}
+        message={<span id="message-id">{snackBarMessage}</span>}
+        action={
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={snackBarClose}
+          >
+            X
+          </IconButton>
+        }
+      />
       <div className={classes.paper}>
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
